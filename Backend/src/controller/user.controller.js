@@ -1,12 +1,10 @@
-const User = require("../model/user.model.js");
+const User = require("../model/user.model");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
-
 const register = async (req, res) => {
   try {
-    const {uuid, name, email, password } = req.body;
-
+    const { uuid, name, email, password } = req.body;
     if ([uuid, name, email, password].some((field) => field?.trim() === "")) {
       return res.status(400).json({ message: "field is empty" });
     }
@@ -22,12 +20,18 @@ const register = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, "farru@2002", { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user._id }, "farru@2002", {
+      expiresIn: "1h",
+    });
     res.cookie("token", token);
 
-    return res.status(201).json({ message: "User registered successfully", user, token });
+    return res
+      .status(201)
+      .json({ message: "User registered successfully", user, token });
   } catch (error) {
-    return res.status(500).json({ message: "internal server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "internal server error", error: error.message });
   }
 };
 
@@ -50,17 +54,20 @@ const login = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, "your_jwt_secret", { expiresIn: "1h" });
+    const token = jwt.sign({ userId: user._id }, "your_jwt_secret", {
+      expiresIn: "1h",
+    });
     res.cookie("token", token);
 
     return res.status(200).json({ message: "login successful", token });
   } catch (error) {
-    return res.status(500).json({ message: "internal server error", error: error.message });
+    return res
+      .status(500)
+      .json({ message: "internal server error", error: error.message });
   }
 };
 
-
 module.exports = {
   register,
-  login
+  login,
 };

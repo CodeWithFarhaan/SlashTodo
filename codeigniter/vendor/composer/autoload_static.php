@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
+class ComposerStaticInitf3a24bec498af86e439470d25af851dc
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -205,8 +205,8 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -2565,7 +2565,6 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'PhpCsFixer\\FixerDefinition\\VersionSpecification' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/FixerDefinition/VersionSpecification.php',
         'PhpCsFixer\\FixerDefinition\\VersionSpecificationInterface' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/FixerDefinition/VersionSpecificationInterface.php',
         'PhpCsFixer\\FixerFactory' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/FixerFactory.php',
-        'PhpCsFixer\\FixerFileProcessedEvent' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/FixerFileProcessedEvent.php',
         'PhpCsFixer\\FixerNameValidator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/FixerNameValidator.php',
         'PhpCsFixer\\Fixer\\AbstractIncrementOperatorFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/AbstractIncrementOperatorFixer.php',
         'PhpCsFixer\\Fixer\\AbstractPhpUnitFixer' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Fixer/AbstractPhpUnitFixer.php',
@@ -2909,6 +2908,7 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'PhpCsFixer\\RuleSet\\Sets\\PHP80MigrationRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP80MigrationRiskySet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP80MigrationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP80MigrationSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP81MigrationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP81MigrationSet.php',
+        'PhpCsFixer\\RuleSet\\Sets\\PHP82MigrationRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP82MigrationRiskySet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP82MigrationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP82MigrationSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP83MigrationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP83MigrationSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\PHP84MigrationSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PHP84MigrationSet.php',
@@ -2936,6 +2936,8 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'PhpCsFixer\\RuleSet\\Sets\\PhpCsFixerSet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/PhpCsFixerSet.php',
         'PhpCsFixer\\RuleSet\\Sets\\SymfonyRiskySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/SymfonyRiskySet.php',
         'PhpCsFixer\\RuleSet\\Sets\\SymfonySet' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/RuleSet/Sets/SymfonySet.php',
+        'PhpCsFixer\\Runner\\Event\\AnalysisStarted' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/Event/AnalysisStarted.php',
+        'PhpCsFixer\\Runner\\Event\\FileProcessed' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/Event/FileProcessed.php',
         'PhpCsFixer\\Runner\\FileCachingLintingFileIterator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/FileCachingLintingFileIterator.php',
         'PhpCsFixer\\Runner\\FileFilterIterator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/FileFilterIterator.php',
         'PhpCsFixer\\Runner\\LintingFileIterator' => __DIR__ . '/..' . '/friendsofphp/php-cs-fixer/src/Runner/LintingFileIterator.php',
@@ -3314,6 +3316,7 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'Predis\\Command\\Argument\\Search\\SchemaFields\\AbstractField' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/AbstractField.php',
         'Predis\\Command\\Argument\\Search\\SchemaFields\\FieldInterface' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/FieldInterface.php',
         'Predis\\Command\\Argument\\Search\\SchemaFields\\GeoField' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/GeoField.php',
+        'Predis\\Command\\Argument\\Search\\SchemaFields\\GeoShapeField' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/GeoShapeField.php',
         'Predis\\Command\\Argument\\Search\\SchemaFields\\NumericField' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/NumericField.php',
         'Predis\\Command\\Argument\\Search\\SchemaFields\\TagField' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/TagField.php',
         'Predis\\Command\\Argument\\Search\\SchemaFields\\TextField' => __DIR__ . '/..' . '/predis/predis/src/Command/Argument/Search/SchemaFields/TextField.php',
@@ -3445,6 +3448,9 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'Predis\\Command\\Redis\\GETSET' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/GETSET.php',
         'Predis\\Command\\Redis\\HDEL' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HDEL.php',
         'Predis\\Command\\Redis\\HEXISTS' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HEXISTS.php',
+        'Predis\\Command\\Redis\\HEXPIRE' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HEXPIRE.php',
+        'Predis\\Command\\Redis\\HEXPIREAT' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HEXPIREAT.php',
+        'Predis\\Command\\Redis\\HEXPIRETIME' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HEXPIRETIME.php',
         'Predis\\Command\\Redis\\HGET' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HGET.php',
         'Predis\\Command\\Redis\\HGETALL' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HGETALL.php',
         'Predis\\Command\\Redis\\HINCRBY' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HINCRBY.php',
@@ -3453,11 +3459,17 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'Predis\\Command\\Redis\\HLEN' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HLEN.php',
         'Predis\\Command\\Redis\\HMGET' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HMGET.php',
         'Predis\\Command\\Redis\\HMSET' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HMSET.php',
+        'Predis\\Command\\Redis\\HPERSIST' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HPERSIST.php',
+        'Predis\\Command\\Redis\\HPEXPIRE' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HPEXPIRE.php',
+        'Predis\\Command\\Redis\\HPEXPIREAT' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HPEXPIREAT.php',
+        'Predis\\Command\\Redis\\HPEXPIRETIME' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HPEXPIRETIME.php',
+        'Predis\\Command\\Redis\\HPTTL' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HPTTL.php',
         'Predis\\Command\\Redis\\HRANDFIELD' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HRANDFIELD.php',
         'Predis\\Command\\Redis\\HSCAN' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HSCAN.php',
         'Predis\\Command\\Redis\\HSET' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HSET.php',
         'Predis\\Command\\Redis\\HSETNX' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HSETNX.php',
         'Predis\\Command\\Redis\\HSTRLEN' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HSTRLEN.php',
+        'Predis\\Command\\Redis\\HTTL' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HTTL.php',
         'Predis\\Command\\Redis\\HVALS' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/HVALS.php',
         'Predis\\Command\\Redis\\INCR' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/INCR.php',
         'Predis\\Command\\Redis\\INCRBY' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/INCRBY.php',
@@ -3640,6 +3652,7 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
         'Predis\\Command\\Redis\\XDEL' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/XDEL.php',
         'Predis\\Command\\Redis\\XLEN' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/XLEN.php',
         'Predis\\Command\\Redis\\XRANGE' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/XRANGE.php',
+        'Predis\\Command\\Redis\\XREAD' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/XREAD.php',
         'Predis\\Command\\Redis\\XREVRANGE' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/XREVRANGE.php',
         'Predis\\Command\\Redis\\XTRIM' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/XTRIM.php',
         'Predis\\Command\\Redis\\ZADD' => __DIR__ . '/..' . '/predis/predis/src/Command/Redis/ZADD.php',
@@ -4382,10 +4395,10 @@ class ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4af92622a4d8d8eb2861dd2606e3a062::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf3a24bec498af86e439470d25af851dc::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf3a24bec498af86e439470d25af851dc::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitf3a24bec498af86e439470d25af851dc::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitf3a24bec498af86e439470d25af851dc::$classMap;
 
         }, null, ClassLoader::class);
     }

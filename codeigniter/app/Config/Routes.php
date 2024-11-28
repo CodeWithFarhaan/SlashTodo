@@ -16,3 +16,5 @@ $routes->post('/logout', 'Home::Logout');
 
 $routes->post('/update-user', 'Home::updateUser');
 $routes->get('/delete-user/(:num)', 'Home::deleteUser/$1');
+$routes->get('/uploadUser', 'Home::uploadUser');
+$routes->post('/uploadUser/upload', 'Home::upload');

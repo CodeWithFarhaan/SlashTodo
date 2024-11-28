@@ -9,14 +9,13 @@
 </head>
 
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-
     <!-- Signup Form Container -->
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md sm:w-4/5 md:w-1/2 lg:w-1/3 xl:w-1/4">
         <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Sign Up</h1>
 
         <!-- Form Start -->
         <form action="<?= base_url("/signup") ?>" method="post">
-        <!-- UUID Field -->
+            <!-- UUID Field -->
             <div class="mb-4">
                 <label for="uuid" class="block text-gray-700 text-sm font-semibold mb-2">UUID:</label>
                 <input type="text" id="uuid" name="uuid"

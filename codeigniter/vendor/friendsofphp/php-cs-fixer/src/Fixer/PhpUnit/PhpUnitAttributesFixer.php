@@ -151,9 +151,7 @@ final class PhpUnitAttributesFixer extends AbstractPhpUnitFixer implements Confi
                 /** @phpstan-ignore-next-line */
                 $tokensToInsert = self::{$this->fixingMap[$annotationName]}($tokens, $index, $annotation);
 
-                if (!isset($presentAttributes[$annotationName])) {
-                    $presentAttributes[$annotationName] = self::isAttributeAlreadyPresent($tokens, $index, $tokensToInsert);
-                }
+                $presentAttributes[$annotationName] ??= self::isAttributeAlreadyPresent($tokens, $index, $tokensToInsert);
 
                 if ($presentAttributes[$annotationName]) {
                     continue;
@@ -442,7 +440,9 @@ final class PhpUnitAttributesFixer extends AbstractPhpUnitFixer implements Confi
     private static function fixRequires(Tokens $tokens, int $index, Annotation $annotation): array
     {
         $matches = self::getMatches($annotation);
-        \assert(isset($matches[1]));
+        if (!isset($matches[1])) {
+            return [];
+        }
 
         $map = [
             'extension' => 'RequiresPhpExtension',

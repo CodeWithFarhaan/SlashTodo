@@ -7,6 +7,12 @@ use GuzzleHttp\Client;
 
 class Home extends BaseController
 {
+    protected $session;
+    public function __construct()
+    {
+        // Load session service
+        $this->session = \Config\Services::session();
+    }
     public function index(): string
     {
         return view('welcome_message');
@@ -128,4 +134,77 @@ class Home extends BaseController
         // Redirect to the dashboard with a success message
         return redirect()->to('/dashboard')->with('success', 'User deleted successfully!');
     }
+
+    //upload
+    public function uploadUser()
+    {
+        if (!$this->session->has('user')) {
+            return redirect()->to('/login');
+        } else {
+            return view('Upload');
+        }
+    }
+
+    public function upload()
+    {
+        $file = $this->request->getfile('csv_file');
+        if ($file->isValid() && !$file->hasMoved()) {
+            $filePath = $file->getTempName();
+            $this->lookupcsv($filePath);
+        } else {
+            return redirect()->to('/userUpload')->with('error', 'file not upload recheck the provide name plzzzzz');
+        }
+        return redirect()->to('/dashboard');
+    }
+
+    private function lookupcsv($filePath)
+    {
+        $csv = fopen($filePath, 'r');
+        $user_model = new UserModel();
+        $header = fgetcsv($csv);
+        while (($row = fgetcsv($csv)) !== false) {
+            $uuid = $row[1];
+            $name = $row[2];
+            $email = $row[3];
+            $password = password_hash($row[4], PASSWORD_BCRYPT);
+            $data = [
+                'uuid' => $uuid,
+                'name' => $name,
+                'email' => $email,
+                'password' => $password,
+            ];
+            $existingUser = $user_model->where('email', $email)->first();
+            if ($existingUser) {
+                log_message('info', 'user already exists in sql');
+            } else {
+                $user_model->save($data);
+            }
+            $this->syncMongoDB($data);
+        }
+        fclose($csv);
+        return redirect()->to('/userUpload')->with('success', 'user succesfully registered and synced with mongodb');
+    }
+    private function syncMongoDB($data)
+    {
+        $client = new Client();
+        $nodeApiUrl = 'http://localhost:3000/api/register';
+        try {
+            $response = $client->post($nodeApiUrl, [
+                'json' => [
+                    'uuid' => $data['uuid'],
+                    'name' => $data['name'],
+                    'email' => $data['email'],
+                    'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT)
+                ]
+            ]);
+            if ($response->getStatusCode() != 200) {
+                log_message('info', 'user successfully synced with mongodb');
+            } else {
+                log_message('error', 'failed to synced with mongodb');
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Error syncing with Mongodb:' . $e->getMessage());
+        }
+    }
 }
+

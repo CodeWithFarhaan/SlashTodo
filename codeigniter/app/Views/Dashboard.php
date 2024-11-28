@@ -12,7 +12,6 @@
 </head>
 
 <body class="bg-gray-100 flex justify-center items-center h-screen">
-
     <!-- Dashboard Table Container -->
     <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-4xl mx-4 sm:mx-6 md:mx-8 lg:mx-12 xl:mx-auto">
         <!-- Header Section with Space Between -->
@@ -37,13 +36,19 @@
             <!-- Download Button with Data -->
             <div class="flex space-x-4">
                 <button
+                    class="bg-blue-700 text-white py-1 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600"><a
+                        href="/uploadUser"><i class="fa-solid fa-cloud-arrow-up"></i> Upload</a>
+                </button>
+                <button
                     class="bg-blue-700 text-white py-1 px-4 rounded-lg hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-600"
                     onclick="downloadData()">
                     <i class="fa-solid fa-download"></i> Download
                 </button>
                 <!-- Logout Link -->
-                <a href="/logout"
-                    class="text-white px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">Logout</a>
+                <button>
+                    <a href="/logout"
+                        class="text-white px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">Logout</a>
+                </button>
             </div>
         </div>
 
@@ -74,11 +79,18 @@
                             </button>
 
                             <!-- Delete Button with Data -->
-                            <button
+                            <!-- <button
                                 class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
                                 onclick="confirmDelete(<?php echo $row->id; ?>)">
                                 <i class="fa-solid fa-trash"></i> Delete
+                            </button> -->
+                            <!-- Delete Button with Data -->
+                            <button
+                                class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                onclick="confirmDelete('<?php echo $row->uuid; ?>')">
+                                <i class="fa-solid fa-trash"></i> Delete
                             </button>
+
                         </td>
                     </tr>
                 <?php } ?>
@@ -127,7 +139,7 @@
     <script>
         // Pagination state variables
         let currentPage = 1;
-        const rowsPerPage = 3;
+        const rowsPerPage = 5;
 
         // Function to show the correct users for the current page
         function paginateUsers() {

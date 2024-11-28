@@ -167,14 +167,12 @@ final class OrderedAttributesFixer extends AbstractFixer implements Configurable
         $index = 0;
 
         while (null !== $index = $tokens->getNextTokenOfKind($index, [[T_ATTRIBUTE]])) {
-            /** @var list<array{name: string, start: int, end: int}> $elements */
-            $elements = array_map(function (AttributeAnalysis $attributeAnalysis) use ($tokens): array {
-                return [
-                    'name' => $this->sortAttributes($tokens, $attributeAnalysis->getStartIndex(), $attributeAnalysis->getAttributes()),
-                    'start' => $attributeAnalysis->getStartIndex(),
-                    'end' => $attributeAnalysis->getEndIndex(),
-                ];
-            }, AttributeAnalyzer::collect($tokens, $index));
+            /** @var _AttributeItems $elements */
+            $elements = array_map(fn (AttributeAnalysis $attributeAnalysis): array => [
+                'name' => $this->sortAttributes($tokens, $attributeAnalysis->getStartIndex(), $attributeAnalysis->getAttributes()),
+                'start' => $attributeAnalysis->getStartIndex(),
+                'end' => $attributeAnalysis->getEndIndex(),
+            ], AttributeAnalyzer::collect($tokens, $index));
 
             $endIndex = end($elements)['end'];
 
@@ -258,9 +256,9 @@ final class OrderedAttributesFixer extends AbstractFixer implements Configurable
     }
 
     /**
-     * @param list<array{name: string, start: int, end: int}> $elements
+     * @param _AttributeItems $elements
      *
-     * @return list<array{name: string, start: int, end: int}>
+     * @return _AttributeItems
      */
     private function sortElements(array $elements): array
     {
@@ -285,7 +283,7 @@ final class OrderedAttributesFixer extends AbstractFixer implements Configurable
     }
 
     /**
-     * @param list<array{name: string, start: int, end: int}> $elements
+     * @param _AttributeItems $elements
      */
     private function sortTokens(Tokens $tokens, int $startIndex, int $endIndex, array $elements, ?Token $delimiter = null): void
     {

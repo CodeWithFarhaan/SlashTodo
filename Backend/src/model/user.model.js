@@ -8,14 +8,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       trim: true,
-      unique: true,
     },
     name: {
       type: String,
       required: true,
       trim: true,
-      unique: true,
-      index: true,
     },
     email: {
       type: String,
@@ -45,7 +42,7 @@ userSchema.methods.comparePassword = async function (password) {
 userSchema.methods.generatetoken = async function () {
   try {
     return jwt.sign(
-      { id: this._id, name: this.name, email: this.email },
+      { id: this._id, uuid: this.uuid, name: this.name, email: this.email },
       process.env.JWT_SECRET
     );
   } catch (err) {

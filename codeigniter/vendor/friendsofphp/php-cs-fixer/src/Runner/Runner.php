@@ -27,11 +27,12 @@ use PhpCsFixer\Error\ErrorsManager;
 use PhpCsFixer\Error\SourceExceptionFactory;
 use PhpCsFixer\FileReader;
 use PhpCsFixer\Fixer\FixerInterface;
-use PhpCsFixer\FixerFileProcessedEvent;
 use PhpCsFixer\Linter\LinterInterface;
 use PhpCsFixer\Linter\LintingException;
 use PhpCsFixer\Linter\LintingResultInterface;
 use PhpCsFixer\Preg;
+use PhpCsFixer\Runner\Event\AnalysisStarted;
+use PhpCsFixer\Runner\Event\FileProcessed;
 use PhpCsFixer\Runner\Parallel\ParallelAction;
 use PhpCsFixer\Runner\Parallel\ParallelConfig;
 use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
@@ -159,10 +160,20 @@ final class Runner
             return [];
         }
 
-        // @TODO Remove condition for the input argument in 4.0, as it should be required in the constructor
-        return $this->parallelConfig->getMaxProcesses() > 1 && null !== $this->input
-            ? $this->fixParallel()
-            : $this->fixSequential();
+        // @TODO 4.0: Remove condition and its body, as no longer needed when param will be required in the constructor.
+        // This is a fallback only in case someone calls `new Runner()` in a custom repo and does not provide v4-ready params in v3-codebase.
+        if (null === $this->input) {
+            return $this->fixSequential();
+        }
+
+        if (
+            1 === $this->parallelConfig->getMaxProcesses()
+            || $this->fileCount <= $this->parallelConfig->getFilesPerProcess()
+        ) {
+            return $this->fixSequential();
+        }
+
+        return $this->fixParallel();
     }
 
     /**
@@ -172,6 +183,8 @@ final class Runner
      */
     private function fixParallel(): array
     {
+        $this->dispatchEvent(AnalysisStarted::NAME, new AnalysisStarted(AnalysisStarted::MODE_PARALLEL, $this->isDryRun));
+
         $changed = [];
         $streamSelectLoop = new StreamSelectLoop();
         $server = new TcpServer('127.0.0.1:0', $streamSelectLoop);
@@ -273,10 +286,7 @@ final class Runner
                         $fileRelativePath = $this->directory->getRelativePathTo($fileAbsolutePath);
 
                         // Dispatch an event for each file processed and dispatch its status (required for progress output)
-                        $this->dispatchEvent(
-                            FixerFileProcessedEvent::NAME,
-                            new FixerFileProcessedEvent($workerResponse['status'])
-                        );
+                        $this->dispatchEvent(FileProcessed::NAME, new FileProcessed($workerResponse['status']));
 
                         if (isset($workerResponse['fileHash'])) {
                             $this->cacheManager->setFileHash($fileRelativePath, $workerResponse['fileHash']);
@@ -369,6 +379,8 @@ final class Runner
      */
     private function fixSequential(): array
     {
+        $this->dispatchEvent(AnalysisStarted::NAME, new AnalysisStarted(AnalysisStarted::MODE_SEQUENTIAL, $this->isDryRun));
+
         $changed = [];
         $collection = $this->getLintingFileIterator();
 
@@ -402,8 +414,8 @@ final class Runner
             $lintingResult->check();
         } catch (LintingException $e) {
             $this->dispatchEvent(
-                FixerFileProcessedEvent::NAME,
-                new FixerFileProcessedEvent(FixerFileProcessedEvent::STATUS_INVALID)
+                FileProcessed::NAME,
+                new FileProcessed(FileProcessed::STATUS_INVALID)
             );
 
             $this->errorsManager->report(new Error(Error::TYPE_INVALID, $name, $e));
@@ -441,10 +453,7 @@ final class Runner
                 }
             }
         } catch (\ParseError $e) {
-            $this->dispatchEvent(
-                FixerFileProcessedEvent::NAME,
-                new FixerFileProcessedEvent(FixerFileProcessedEvent::STATUS_LINT)
-            );
+            $this->dispatchEvent(FileProcessed::NAME, new FileProcessed(FileProcessed::STATUS_LINT));
 
             $this->errorsManager->report(new Error(Error::TYPE_LINT, $name, $e));
 
@@ -475,10 +484,7 @@ final class Runner
             try {
                 $this->linter->lintSource($new)->check();
             } catch (LintingException $e) {
-                $this->dispatchEvent(
-                    FixerFileProcessedEvent::NAME,
-                    new FixerFileProcessedEvent(FixerFileProcessedEvent::STATUS_LINT)
-                );
+                $this->dispatchEvent(FileProcessed::NAME, new FileProcessed(FileProcessed::STATUS_LINT));
 
                 $this->errorsManager->report(new Error(Error::TYPE_LINT, $name, $e, $fixInfo['appliedFixers'], $fixInfo['diff']));
 
@@ -531,8 +537,8 @@ final class Runner
         $this->cacheManager->setFileHash($name, $newHash);
 
         $this->dispatchEvent(
-            FixerFileProcessedEvent::NAME,
-            new FixerFileProcessedEvent(null !== $fixInfo ? FixerFileProcessedEvent::STATUS_FIXED : FixerFileProcessedEvent::STATUS_NO_CHANGES, $name, $newHash)
+            FileProcessed::NAME,
+            new FileProcessed(null !== $fixInfo ? FileProcessed::STATUS_FIXED : FileProcessed::STATUS_NO_CHANGES, $name, $newHash)
         );
 
         return $fixInfo;
@@ -543,10 +549,7 @@ final class Runner
      */
     private function processException(string $name, \Throwable $e): void
     {
-        $this->dispatchEvent(
-            FixerFileProcessedEvent::NAME,
-            new FixerFileProcessedEvent(FixerFileProcessedEvent::STATUS_EXCEPTION)
-        );
+        $this->dispatchEvent(FileProcessed::NAME, new FileProcessed(FileProcessed::STATUS_EXCEPTION));
 
         $this->errorsManager->report(new Error(Error::TYPE_EXCEPTION, $name, $e));
     }
