@@ -15818,3 +15818,84 @@ INFO - 2024-11-28 11:30:18 --> Session: Class initialized using 'CodeIgniter\Ses
 INFO - 2024-11-28 11:30:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-11-28 11:30:39 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
 INFO - 2024-11-28 11:30:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:08:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:08:53 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:08:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:08:58 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:09:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:09:06 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:09:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:09:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:09:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:10:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:11:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:11:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:11:50 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:11:56 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:12:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:12:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+WARNING - 2024-11-28 12:12:20 --> [DEPRECATED] password_hash(): Passing null to parameter #1 ($password) of type string is deprecated in APPPATH\Controllers\Home.php on line 197.
+ 1 APPPATH\Controllers\Home.php(197): password_hash(null, '2y')
+ 2 APPPATH\Controllers\Home.php(182): App\Controllers\Home->syncMongoDB([...])
+ 3 APPPATH\Controllers\Home.php(153): App\Controllers\Home->lookupcsv('C:\\xampp\\tmp\\php98CC.tmp')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->upload()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Project2\\codeigniter\\public\\index.php')
+INFO - 2024-11-28 12:12:20 --> user successfully synced with mongodb
+WARNING - 2024-11-28 12:12:20 --> [DEPRECATED] password_hash(): Passing null to parameter #1 ($password) of type string is deprecated in APPPATH\Controllers\Home.php on line 197.
+ 1 APPPATH\Controllers\Home.php(197): password_hash(null, '2y')
+ 2 APPPATH\Controllers\Home.php(182): App\Controllers\Home->syncMongoDB([...])
+ 3 APPPATH\Controllers\Home.php(153): App\Controllers\Home->lookupcsv('C:\\xampp\\tmp\\php98CC.tmp')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->upload()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Project2\\codeigniter\\public\\index.php')
+ERROR - 2024-11-28 12:12:20 --> Error syncing with Mongodb:Client error: `POST http://localhost:3000/api/register` resulted in a `400 Bad Request` response:
+{"message":"field is empty"}
+
+WARNING - 2024-11-28 12:12:20 --> [DEPRECATED] password_hash(): Passing null to parameter #1 ($password) of type string is deprecated in APPPATH\Controllers\Home.php on line 197.
+ 1 APPPATH\Controllers\Home.php(197): password_hash(null, '2y')
+ 2 APPPATH\Controllers\Home.php(182): App\Controllers\Home->syncMongoDB([...])
+ 3 APPPATH\Controllers\Home.php(153): App\Controllers\Home->lookupcsv('C:\\xampp\\tmp\\php98CC.tmp')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->upload()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Project2\\codeigniter\\public\\index.php')
+INFO - 2024-11-28 12:12:20 --> user successfully synced with mongodb
+WARNING - 2024-11-28 12:12:20 --> [DEPRECATED] password_hash(): Passing null to parameter #1 ($password) of type string is deprecated in APPPATH\Controllers\Home.php on line 197.
+ 1 APPPATH\Controllers\Home.php(197): password_hash(null, '2y')
+ 2 APPPATH\Controllers\Home.php(182): App\Controllers\Home->syncMongoDB([...])
+ 3 APPPATH\Controllers\Home.php(153): App\Controllers\Home->lookupcsv('C:\\xampp\\tmp\\php98CC.tmp')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->upload()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Project2\\codeigniter\\public\\index.php')
+INFO - 2024-11-28 12:12:21 --> user successfully synced with mongodb
+WARNING - 2024-11-28 12:12:21 --> [DEPRECATED] password_hash(): Passing null to parameter #1 ($password) of type string is deprecated in APPPATH\Controllers\Home.php on line 197.
+ 1 APPPATH\Controllers\Home.php(197): password_hash(null, '2y')
+ 2 APPPATH\Controllers\Home.php(182): App\Controllers\Home->syncMongoDB([...])
+ 3 APPPATH\Controllers\Home.php(153): App\Controllers\Home->lookupcsv('C:\\xampp\\tmp\\php98CC.tmp')
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Home->upload()
+ 5 SYSTEMPATH\CodeIgniter.php(509): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Home))
+ 6 SYSTEMPATH\CodeIgniter.php(355): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(325): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(67): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(56): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+10 SYSTEMPATH\rewrite.php(44): require_once('C:\\xampp\\htdocs\\Project2\\codeigniter\\public\\index.php')
+INFO - 2024-11-28 12:12:21 --> user successfully synced with mongodb
+INFO - 2024-11-28 12:12:21 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:17:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+INFO - 2024-11-28 12:17:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

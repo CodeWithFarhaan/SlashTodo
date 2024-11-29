@@ -1,0 +1,3 @@
+__ci_last_regenerate|i:1732875224;_ci_previous_url|s:41:"http://localhost:8080/index.php/dashboard";user|O:8:"stdClass":5:{s:2:"id";s:3:"469";s:4:"uuid";s:6:"223332";s:4:"name";s:5:"farru";s:5:"email";s:15:"farru@gmail.com";s:8:"password";s:60:"$2y$10$8fTzq73GkKm1tcfekGuvr.rHIa.KWFYbQVQ9uEuZZwL5Jeo1PTwJe";}error|s:176:"Error while updating the user.Server error: `POST http://localhost:3000/api/updateuser` resulted in a `500 Internal Server Error` response:
+{"message":"internal server errro"}
+";__ci_vars|a:1:{s:5:"error";s:3:"old";}

@@ -1,0 +1,3 @@
+__ci_last_regenerate|i:1732875863;_ci_previous_url|s:41:"http://localhost:8080/index.php/dashboard";user|O:8:"stdClass":5:{s:2:"id";s:3:"470";s:4:"uuid";s:6:"223332";s:4:"name";s:5:"farru";s:5:"email";s:15:"farru@gmail.com";s:8:"password";s:60:"$2y$10$RTCoBONiC1Str9mGbbeUpOJx3yfU9srn8oSoK6Nfx4P941Tx.dRh2";}error|s:157:"Error while updating the user.Client error: `POST http://localhost:3000/api/updateuser` resulted in a `404 Not Found` response:
+{"message":"user not found"}
+";__ci_vars|a:1:{s:5:"error";s:3:"old";}

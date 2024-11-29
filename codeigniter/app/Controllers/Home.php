@@ -104,36 +104,74 @@ class Home extends BaseController
     public function updateUser()
     {
         $user_model = new UserModel();
-
-        // Get the submitted data
+        // Check if user exists
         $id = $this->request->getPost('id');
+        $uuid = $this->request->getPost('uuid');
         $name = $this->request->getPost('name');
         $email = $this->request->getPost('email');
-
-        // Prepare data for update
         $updatedData = [];
         if ($name)
             $updatedData['name'] = $name;
         if ($email)
             $updatedData['email'] = $email;
-
-        // Update the user in the database
-        $user_model->update($id, $updatedData);
-
-        // Redirect to the dashboard with a success message
-        return redirect()->to('/dashboard')->with('success', 'User updated successfully!');
+        $result = $user_model->update($id, $updatedData);
+        if ($result) {
+            try {
+                $client = new Client();
+                // Pass the correct id in the request body
+                $response = $client->post("http://localhost:3000/api/updateuser", [
+                    'json' => [
+                        'uuid' => $uuid, // Correctly pass the id as a string or ObjectId
+                        'name' => $name,
+                        'email' => $email,
+                    ]
+                ]);
+                if ($response->getStatusCode() == 200) {
+                    return redirect()->to("/dashboard")->with("success", "user updated successfully");
+                } else {
+                    return redirect()->to("/dashboard")->with("error", "Failed to update user");
+                }
+            } catch (\Exception $e) {
+                return redirect()->to("/dashboard")->with("error", 'Error while updating the user.' . $e->getMessage());
+            }
+        } else {
+            return redirect()->to('/dashboard')->with('error', 'Failed to update user from the database');
+        }
     }
 
-    public function deleteUser($id)
+
+    public function deleteUser($id, $uuid)
     {
         $user_model = new UserModel();
 
-        // Delete the user from the database
-        $user_model->delete($id);
+        // Check if user exists
+        $user = $user_model->find($id); // Or however you check for the user existence
+        if (!$user) {
+            return redirect()->to('/dashboard')->with('error', 'User not found');
+        }
 
-        // Redirect to the dashboard with a success message
-        return redirect()->to('/dashboard')->with('success', 'User deleted successfully!');
+        // Delete the user from the database
+        $result = $user_model->delete($id);
+
+        if ($result) {
+            try {
+                // External service deletion
+                $client = new Client();
+                $response = $client->delete("http://localhost:3000/api/deleteuser/$uuid");
+
+                if ($response->getStatusCode() == 200) {
+                    return redirect()->to('/dashboard')->with('success', 'User deleted successfully');
+                } else {
+                    return redirect()->to('/dashboard')->with('error', 'Failed to delete user on external service');
+                }
+            } catch (\Exception $e) {
+                return redirect()->to('/dashboard')->with('error', 'Error while deleting user: ' . $e->getMessage());
+            }
+        } else {
+            return redirect()->to('/dashboard')->with('error', 'Failed to delete user from the database');
+        }
     }
+
 
     //upload
     public function uploadUser()
@@ -152,7 +190,7 @@ class Home extends BaseController
             $filePath = $file->getTempName();
             $this->lookupcsv($filePath);
         } else {
-            return redirect()->to('/userUpload')->with('error', 'file not upload recheck the provide name plzzzzz');
+            return redirect()->to('/userUpload')->with('error', 'File upload failed. Please check the file and try again.');
         }
         return redirect()->to('/dashboard');
     }
@@ -194,17 +232,17 @@ class Home extends BaseController
                     'uuid' => $data['uuid'],
                     'name' => $data['name'],
                     'email' => $data['email'],
-                    'password' => password_hash($this->request->getPost('password'), PASSWORD_BCRYPT)
+                    'password' => $data['password']
                 ]
             ]);
-            if ($response->getStatusCode() != 200) {
+            if ($response->getStatusCode() == 200) {
                 log_message('info', 'user successfully synced with mongodb');
             } else {
-                log_message('error', 'failed to synced with mongodb');
+                log_message('error', 'failed to sync with mongodb');
             }
+
         } catch (\Exception $e) {
             log_message('error', 'Error syncing with Mongodb:' . $e->getMessage());
         }
     }
 }
-

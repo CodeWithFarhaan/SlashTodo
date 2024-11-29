@@ -74,23 +74,16 @@
                             <!-- Edit Button with Data -->
                             <button
                                 class="bg-green-400 text-white py-1 px-4 rounded hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-green-500 mr-2"
-                                onclick="openEditModal(<?php echo $row->id; ?>, '<?php echo $row->name; ?>', '<?php echo $row->email; ?>','<?php echo $row->uuid; ?>')">
+                                onclick="openEditModal(<?php echo $row->id; ?>, '<?php echo $row->uuid; ?>','<?php echo $row->name; ?>', '<?php echo $row->email; ?>')">
                                 <i class="fa-solid fa-pen-to-square"></i> Edit
                             </button>
 
                             <!-- Delete Button with Data -->
-                            <!-- <button
-                                class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                onclick="confirmDelete(<?php echo $row->id; ?>)">
-                                <i class="fa-solid fa-trash"></i> Delete
-                            </button> -->
-                            <!-- Delete Button with Data -->
                             <button
                                 class="bg-red-500 text-white py-1 px-4 rounded hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
-                                onclick="confirmDelete('<?php echo $row->uuid; ?>')">
+                                onclick="confirmDelete('<?php echo $row->id; ?>','<?php echo $row->uuid; ?>')">
                                 <i class="fa-solid fa-trash"></i> Delete
                             </button>
-
                         </td>
                     </tr>
                 <?php } ?>
@@ -111,10 +104,15 @@
     <div id="editModal" class="absolute inset-0 flex justify-center items-center bg-gray-500 bg-opacity-50 hidden">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm mx-4 sm:mx-8">
             <h2 class="text-2xl font-semibold text-center text-gray-800 mb-4">Edit User</h2>
-            <form id="editForm" action="/update-user" method="POST">
-                <div class="mb-4">
+            <form id="editForm" action="/updateuser" method="POST">
+                <div class="mb-4" hidden>
                     <label for="editId" class="block text-gray-700">Id</label>
-                    <input type="text" name="id" id="editId" class="w-full p-2 border border-gray-300 rounded mt-2"
+                    <input type="text" name="id" id="editId" class="w-full p-2 border border-gray-300 rounded mt-2"readonly
+                        required>
+                </div>
+                <div class="mb-4" hidden>
+                    <label for="editUuid" class="block text-gray-700">UUID</label>
+                    <input type="text" name="uuid" id="editUuid" class="w-full p-2 border border-gray-300 rounded mt-2" readonly
                         required>
                 </div>
                 <div class="mb-4">
@@ -227,8 +225,9 @@
         }
 
         // Open the edit modal and pre-fill the form
-        function openEditModal(id, name, email) {
+        function openEditModal(id,uuid, name, email) {
             document.getElementById('editId').value = id;
+            document.getElementById('editUuid').value = uuid;
             document.getElementById('editName').value = name;
             document.getElementById('editEmail').value = email;
             document.getElementById('editModal').classList.remove('hidden');
@@ -239,11 +238,19 @@
             document.getElementById('editModal').classList.add('hidden');
         }
 
-        // Confirm deletion and send delete request
-        function confirmDelete(id) {
+        //Confirm deletion and send delete request
+        // function confirmDelete(id, uuid) {
+        //     if (confirm('Are you sure you want to delete this user?')) {
+        //         // Send DELETE request to backend
+        //         window.location.href = '/deleteuser' + id + '/' + uuid;
+        //     }
+        // }
+
+        function confirmDelete(id, uuid)
+         {
             if (confirm('Are you sure you want to delete this user?')) {
                 // Send DELETE request to backend
-                window.location.href = '/delete-user/' + id;
+                window.location.href = '/deleteuser/' + id + '/' + uuid;
             }
         }
     </script>

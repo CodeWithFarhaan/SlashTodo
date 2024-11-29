@@ -14,7 +14,8 @@ $routes->get('/dashboard', 'Home::Dashboard');
 $routes->get('/logout', 'Home::Logout');
 $routes->post('/logout', 'Home::Logout');
 
-$routes->post('/update-user', 'Home::updateUser');
-$routes->get('/delete-user/(:num)', 'Home::deleteUser/$1');
+$routes->post('/updateuser', 'Home::updateUser');
+$routes->get('/deleteuser/(:num)/(:any)', 'Home::deleteUser/$1/$2');
+$routes->delete('/deleteuser/(:num)/(:any)', 'Home::deleteUser/$1/$2');
 $routes->get('/uploadUser', 'Home::uploadUser');
 $routes->post('/uploadUser/upload', 'Home::upload');
