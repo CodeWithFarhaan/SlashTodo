@@ -28,6 +28,7 @@ class Home extends BaseController
     }
 
 
+    //-------------------------------------------------signup--------------------------------------------------------------
     public function signup()
     {
         if ($this->session->has('user')) {
@@ -67,6 +68,8 @@ class Home extends BaseController
         return view('signup');
     }
 
+
+    //----------------------------------------------login---------------------------------------------------------------
     public function login()
     {
         if ($this->session->has('user')) {
@@ -92,7 +95,7 @@ class Home extends BaseController
     }
 
 
-
+    //----------------------------------------------logout---------------------------------------------------------------
     public function logout()
     {
         $this->session->remove('user');
@@ -101,6 +104,7 @@ class Home extends BaseController
     }
 
 
+    //----------------------------------------------update----------------------------------------------------------------
     public function updateUser()
     {
         $user_model = new UserModel();
@@ -140,6 +144,8 @@ class Home extends BaseController
     }
 
 
+
+    //---------------------------------------delete--------------------------------------------------------
     public function deleteUser($id, $uuid)
     {
         $user_model = new UserModel();
@@ -173,7 +179,7 @@ class Home extends BaseController
     }
 
 
-    //upload
+    //------------------------------------------------------upload------------------------------------------------------------
     public function uploadUser()
     {
         if (!$this->session->has('user')) {
@@ -186,42 +192,81 @@ class Home extends BaseController
     public function upload()
     {
         $file = $this->request->getfile('csv_file');
+        $invalidRows = [];
         if ($file->isValid() && !$file->hasMoved()) {
             $filePath = $file->getTempName();
-            $this->lookupcsv($filePath);
+            $invalidRows = $this->lookupcsv($filePath);
         } else {
             return redirect()->to('/userUpload')->with('error', 'File upload failed. Please check the file and try again.');
         }
-        return redirect()->to('/dashboard');
+        if (!empty($invalidRows)) {
+            return $this->generateInvalidCSV($invalidRows);
+        } else {
+            return redirect()->to('/dashboard');
+        }
     }
 
     private function lookupcsv($filePath)
     {
         $csv = fopen($filePath, 'r');
         $user_model = new UserModel();
+        $invalidRows = [];
+        $validUserData=[];
         $header = fgetcsv($csv);
         while (($row = fgetcsv($csv)) !== false) {
-            $uuid = $row[1];
-            $name = $row[2];
-            $email = $row[3];
-            $password = password_hash($row[4], PASSWORD_BCRYPT);
+            $uuid = $row[0];
+            $name = $row[1];
+            $email = $row[2];
+            $password = $row[3];
+            if(empty($uuid) || empty($name) || empty($email) || empty($password)) {
+                $invalidRows[]=$row;
+                continue;
+            }
+            $passwordHash = password_hash($password, PASSWORD_BCRYPT);
             $data = [
                 'uuid' => $uuid,
                 'name' => $name,
                 'email' => $email,
-                'password' => $password,
+                'password' => $passwordHash,
             ];
             $existingUser = $user_model->where('email', $email)->first();
             if ($existingUser) {
                 log_message('info', 'user already exists in sql');
             } else {
-                $user_model->save($data);
+                $validUserData[] = $data;
             }
             $this->syncMongoDB($data);
         }
+        if(!empty($validUserData)){
+            $user_model->insertBatch($validUserData);
+        }
         fclose($csv);
-        return redirect()->to('/userUpload')->with('success', 'user succesfully registered and synced with mongodb');
+        return $invalidRows;
     }
+
+    private function generateInvalidCSV($invalidRows)
+    {
+        $filename = 'invalid_rows_' . time() . '.csv';
+        $filePath = WRITEPATH . 'uploads/' . $filename;
+
+        // Open a new file to write invalid rows
+        $file = fopen($filePath, 'w');
+
+        // Write header if you want to include it
+        fputcsv($file, ['name', 'email', 'password']);
+
+        // Write each invalid row to the CSV
+        foreach ($invalidRows as $row) {
+            fputcsv($file, $row);
+        }
+
+        fclose($file);
+
+        // Force download of the CSV file
+        return $this->response->download($filePath, null)->setFileName($filename);
+    }
+
+
     private function syncMongoDB($data)
     {
         $client = new Client();
