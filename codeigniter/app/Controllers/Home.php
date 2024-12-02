@@ -211,15 +211,15 @@ class Home extends BaseController
         $csv = fopen($filePath, 'r');
         $user_model = new UserModel();
         $invalidRows = [];
-        $validUserData=[];
+        $validUserData = [];
         $header = fgetcsv($csv);
         while (($row = fgetcsv($csv)) !== false) {
             $uuid = $row[0];
             $name = $row[1];
             $email = $row[2];
             $password = $row[3];
-            if(empty($uuid) || empty($name) || empty($email) || empty($password)) {
-                $invalidRows[]=$row;
+            if (empty($uuid) || empty($name) || empty($email) || empty($password)) {
+                $invalidRows[] = $row;
                 continue;
             }
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
@@ -237,7 +237,7 @@ class Home extends BaseController
             }
             $this->syncMongoDB($data);
         }
-        if(!empty($validUserData)){
+        if (!empty($validUserData)) {
             $user_model->insertBatch($validUserData);
         }
         fclose($csv);
@@ -253,7 +253,7 @@ class Home extends BaseController
         $file = fopen($filePath, 'w');
 
         // Write header if you want to include it
-        fputcsv($file, ['name', 'email', 'password']);
+        fputcsv($file, ['uuid', 'name', 'email', 'password']);
 
         // Write each invalid row to the CSV
         foreach ($invalidRows as $row) {
@@ -265,6 +265,7 @@ class Home extends BaseController
         // Force download of the CSV file
         return $this->response->download($filePath, null)->setFileName($filename);
     }
+
 
 
     private function syncMongoDB($data)
